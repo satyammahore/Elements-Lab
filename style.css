@@ -561,12 +561,12 @@ header {
 }
 
 
-@media (max-width: 1000px) {
+@media (max-width: 500px) {
   .alya-char {
-    width: 40vw ;
+    width: 40vh ;
     top: 2%;
   }
   .luffy-char {
-    width: 60vw ;
+    width: 60vh ;
   }
 }
