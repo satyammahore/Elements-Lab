@@ -534,7 +534,7 @@ header {
   top: 5%;
   right: 0;
   transform: translateX(150px);
-  width: clamp(90px, 15vw, 130px) !important;
+  width: 30vw;
   transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -543,7 +543,7 @@ header {
   bottom: 0;
   left: 0;
   transform: translateX(-150px);
-  width: clamp(110px, 20vw, 160px) !important;
+  width: 40vw;
   transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -561,12 +561,12 @@ header {
 }
 
 
-@media (max-width: 480px) {
+@media (max-width: 100px) {
   .alya-char {
-    width: 75px !important;
+    width: 40vw !important;
     top: 2%;
   }
   .luffy-char {
-    width: 95px !important;
+    width: 60vw !important;
   }
 }
