@@ -576,9 +576,10 @@ header {
 @media (max-width: 1000px) and (orientation: landscape) {
   .alya-char {
     width: 15vw; /* Width kam kar di taaki overlap na ho */
-    top: 2%;
+    top: -5%;
   }
   .luffy-char {
-    width: 20vw; /* Ise bhi vertical mode ke mukable chota kar diya */
+    width: 20vw;/* Ise bhi vertical mode ke mukable chota kar diya */
+    bottom: -5%;
   }
 }
