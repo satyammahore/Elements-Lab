@@ -566,7 +566,7 @@ header {
   .alya-char {
     width: 25vh; /* Width kam kar di taaki text par overlap na ho */
     min-width: 110px; /* Character isse zyada chota nahi hoga */
-    top: 2%;
+    top: 1%;
   }
   .luffy-char {
     width: 33vh; /* Width 60vw se ghatakar 32vw kar di */
