@@ -561,7 +561,7 @@ header {
 }
 
 
-@media (max-width: 100px) {
+@media (max-width: 1000px) {
   .alya-char {
     width: 40vw ;
     top: 2%;
