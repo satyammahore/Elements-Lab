@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>आवर्त सारणी — Interactive Periodic Table & Mnemonics Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+Devanagari:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="brand-title">
+      ELEMENT<span style="color:var(--border-focus)">LAB</span>
+      <span class="brand-badge">आवर्त सारणी</span>
+      <span id="sat" class="brand-badge">Satyam mahore</span>
+    </div>
+
+    <div class="controls-wrapper">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="तत्व / Symbol / परमाणु संख्या..." />
+      </div>
+
+      <div class="btn-group" id="langGroup">
+        <button class="btn-toggle active" data-lang="both">दोनों (Both)</button>
+        <button class="btn-toggle" data-lang="hi">हिंदी</button>
+        <button class="btn-toggle" data-lang="en">English</button>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn-toggle active" data-filter="all">सभी</button>
+        <button class="btn-toggle" data-filter="s">s-ब्लॉक</button>
+        <button class="btn-toggle" data-filter="d">d-ब्लॉक</button>
+        <button class="btn-toggle" data-filter="p">p-ब्लॉक</button>
+        <button class="btn-toggle" data-filter="f">f-ब्लॉक</button>
+      </div>
+
+      <button id="btnStartQuiz" class="quiz-btn">
+        <span>🎯</span> प्रश्नोत्तरी (Quiz)
+      </button>
+    </div>
+  </header>
+
+  <div class="ticker-bar" id="tickerBar">
+    <div id="tickerText">
+      <strong>💡 याद रखने का तरीका (Mnemonics):</strong> किसी भी तत्व पर माउस ले जाएं और उसकी याद रखने की ट्रिक देखें!
+    </div>
+  </div>
+
+  <main class="table-container">
+    <div class="periodic-grid" id="tableGrid">
+      <div class="divider-col div-s-d"></div>
+      <div class="divider-col div-d-p"></div>
+
+      <div class="f-block-banner">
+        <span>आंतरिक संक्रमण तत्व (Inner Transition Elements: f-Block)</span>
+      </div>
+    </div>
+  </main>
+
+  <footer class="legend-bar">
+    <div class="legend-chip" data-cat="cat-alkali"><span class="swatch" style="background:var(--c-alkali)"></span> क्षार धातु (Alkali)</div>
+    <div class="legend-chip" data-cat="cat-alkaline"><span class="swatch" style="background:var(--c-alkaline)"></span> क्षारीय मृदा (Alkaline Earth)</div>
+    <div class="legend-chip" data-cat="cat-transition"><span class="swatch" style="background:var(--c-transition)"></span> संक्रमण धातु (Transition)</div>
+    <div class="legend-chip" data-cat="cat-post-transition"><span class="swatch" style="background:var(--c-post-transition)"></span> उत्तर-संक्रमण धातु (Post-Transition)</div>
+    <div class="legend-chip" data-cat="cat-metalloid"><span class="swatch" style="background:var(--c-metalloid)"></span> उपधातु (Metalloid)</div>
+    <div class="legend-chip" data-cat="cat-nonmetal"><span class="swatch" style="background:var(--c-nonmetal)"></span> अधातु (Nonmetal)</div>
+    <div class="legend-chip" data-cat="cat-halogen"><span class="swatch" style="background:var(--c-halogen)"></span> हैलोजन (Halogen)</div>
+    <div class="legend-chip" data-cat="cat-noble"><span class="swatch" style="background:var(--c-noble)"></span> उत्कृष्ट गैसें (Noble Gas)</div>
+    <div class="legend-chip" data-cat="cat-lanthanoid"><span class="swatch" style="background:var(--c-lanthanoid)"></span> लैन्थेनाइड (Lanthanoid)</div>
+    <div class="legend-chip" data-cat="cat-actinoid"><span class="swatch" style="background:var(--c-actinoid)"></span> ऐक्टिनाइड (Actinoid)</div>
+  </footer>
+
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-card">
+      <button class="btn-close" id="btnCloseModal">&times;</button>
+      <div class="modal-head">
+        <div class="modal-sym" id="mSym">H</div>
+        <div class="modal-title">
+          <h2 id="mEnName">Hydrogen</h2>
+          <div class="hi-sub" id="mHiName">हाइड्रोजन</div>
+          <p id="mCategory">क्षार अधातु • s-block</p>
+        </div>
+      </div>
+      <div class="modal-info-grid">
+        <div class="info-tile">
+          <div class="lbl">परमाणु क्रमांक (Atomic Number)</div>
+          <div class="val" id="mZ">1</div>
+        </div>
+        <div class="info-tile">
+          <div class="lbl">परमाणु भार (Atomic Mass)</div>
+          <div class="val" id="mMass">1.008 u</div>
+        </div>
+        <div class="info-tile">
+          <div class="lbl">समूह और आवर्त (Group & Period)</div>
+          <div class="val" id="mCoords">Group 1, Period 1</div>
+        </div>
+        <div class="info-tile">
+          <div class="lbl">इलेक्ट्रॉनिक विन्यास (Configuration)</div>
+          <div class="val" id="mConfig">1s¹</div>
+        </div>
+      </div>
+      <div class="mnemonic-box">
+        <strong>🧠 याद रखने का सूत्र (Mnemonic Trigger):</strong>
+        <p id="mMnemonic">हेलीना की रब से फरियाद (H, Li, Na, K, Rb, Cs, Fr) — Ha-Li-Na ke rubi subi friend</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="quizModal">
+    
+    <img src="image/alya.png" alt="Alya" class="quiz-char alya-char">
+    <img src="image/Luffy.png" alt="Luffy" class="quiz-char luffy-char">
+
+    <div class="modal-card quiz-box">
+      <button class="btn-close" id="btnCloseQuiz">&times;</button>
+      <div class="quiz-badge">अंक (Score): <span id="quizScore">0</span> / <span id="quizTotal">0</span></div>
+      <div class="quiz-q" id="quizQuestion">प्रश्न लोड हो रहा है...</div>
+      <div class="quiz-grid" id="quizOptions"></div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,431 @@
+
+const ELEMENTS = [
+  {z:1, s:"H", en:"Hydrogen", hi:"हाइड्रोजन", m:"1.008", g:1, p:1, b:"s", c:"cat-nonmetal", cfg:"1s¹"},
+  {z:2, s:"He", en:"Helium", hi:"हीलियम", m:"4.0026", g:18, p:1, b:"p", c:"cat-noble", cfg:"1s²"},
+  {z:3, s:"Li", en:"Lithium", hi:"लिथियम", m:"6.94", g:1, p:2, b:"s", c:"cat-alkali", cfg:"[He] 2s¹"},
+  {z:4, s:"Be", en:"Beryllium", hi:"बेरिलियम", m:"9.0122", g:2, p:2, b:"s", c:"cat-alkaline", cfg:"[He] 2s²"},
+  {z:5, s:"B", en:"Boron", hi:"बोरॉन", m:"10.81", g:13, p:2, b:"p", c:"cat-metalloid", cfg:"[He] 2s² 2p¹"},
+  {z:6, s:"C", en:"Carbon", hi:"कार्बन", m:"12.011", g:14, p:2, b:"p", c:"cat-nonmetal", cfg:"[He] 2s² 2p²"},
+  {z:7, s:"N", en:"Nitrogen", hi:"नाइट्रोजन", m:"14.007", g:15, p:2, b:"p", c:"cat-nonmetal", cfg:"[He] 2s² 2p³"},
+  {z:8, s:"O", en:"Oxygen", hi:"ऑक्सीजन", m:"15.999", g:16, p:2, b:"p", c:"cat-nonmetal", cfg:"[He] 2s² 2p⁴"},
+  {z:9, s:"F", en:"Fluorine", hi:"फ्लोरीन", m:"18.998", g:17, p:2, b:"p", c:"cat-halogen", cfg:"[He] 2s² 2p⁵"},
+  {z:10, s:"Ne", en:"Neon", hi:"नियॉन", m:"20.180", g:18, p:2, b:"p", c:"cat-noble", cfg:"[He] 2s² 2p⁶"},
+  {z:11, s:"Na", en:"Sodium", hi:"सोडियम", m:"22.990", g:1, p:3, b:"s", c:"cat-alkali", cfg:"[Ne] 3s¹"},
+  {z:12, s:"Mg", en:"Magnesium", hi:"मैग्नीशियम", m:"24.305", g:2, p:3, b:"s", c:"cat-alkaline", cfg:"[Ne] 3s²"},
+  {z:13, s:"Al", en:"Aluminium", hi:"एल्युमिनियम", m:"26.982", g:13, p:3, b:"p", c:"cat-post-transition", cfg:"[Ne] 3s² 3p¹"},
+  {z:14, s:"Si", en:"Silicon", hi:"सिलिकॉन", m:"28.085", g:14, p:3, b:"p", c:"cat-metalloid", cfg:"[Ne] 3s² 3p²"},
+  {z:15, s:"P", en:"Phosphorus", hi:"फॉस्फोरस", m:"30.974", g:15, p:3, b:"p", c:"cat-nonmetal", cfg:"[Ne] 3s² 3p³"},
+  {z:16, s:"S", en:"Sulfur", hi:"सल्फर / गंधक", m:"32.06", g:16, p:3, b:"p", c:"cat-nonmetal", cfg:"[Ne] 3s² 3p⁴"},
+  {z:17, s:"Cl", en:"Chlorine", hi:"क्लोरीन", m:"35.45", g:17, p:3, b:"p", c:"cat-halogen", cfg:"[Ne] 3s² 3p⁵"},
+  {z:18, s:"Ar", en:"Argon", hi:"आर्गन", m:"39.95", g:18, p:3, b:"p", c:"cat-noble", cfg:"[Ne] 3s² 3p⁶"},
+  {z:19, s:"K", en:"Potassium", hi:"पोटैशियम", m:"39.098", g:1, p:4, b:"s", c:"cat-alkali", cfg:"[Ar] 4s¹"},
+  {z:20, s:"Ca", en:"Calcium", hi:"कैल्शियम", m:"40.078", g:2, p:4, b:"s", c:"cat-alkaline", cfg:"[Ar] 4s²"},
+  {z:21, s:"Sc", en:"Scandium", hi:"स्कैंडियम", m:"44.956", g:3, p:4, b:"d", c:"cat-transition", cfg:"[Ar] 3d¹ 4s²"},
+  {z:22, s:"Ti", en:"Titanium", hi:"टाइटेनियम", m:"47.867", g:4, p:4, b:"d", c:"cat-transition", cfg:"[Ar] 3d² 4s²"},
+  {z:23, s:"V", en:"Vanadium", hi:"वैनेडियम", m:"50.942", g:5, p:4, b:"d", c:"cat-transition", cfg:"[Ar] 3d³ 4s²"},
+  {z:24, s:"Cr", en:"Chromium", hi:"क्रोमियम", m:"51.996", g:6, p:4, b:"d", c:"cat-transition", cfg:"[Ar] 3d⁵ 4s¹"},
+  {z:25, s:"Mn", en:"Manganese", hi:"मैंगनीज", m:"54.938", g:7, p:4, b:"d", c:"cat-transition", cfg:"[Ar] 3d⁵ 4s²"},
+  {z:26, s:"Fe", en:"Iron", hi:"लोहा (Iron)", m:"55.845", g:8, p:4, b:"d", c:"cat-transition", cfg:"[Ar] 3d⁶ 4s²"},
+  {z:27, s:"Co", en:"Cobalt", hi:"कोबाल्ट", m:"58.933", g:9, p:4, b:"d", c:"cat-transition", cfg:"[Ar] 3d⁷ 4s²"},
+  {z:28, s:"Ni", en:"Nickel", hi:"निकल", m:"58.693", g:10, p:4, b:"d", c:"cat-transition", cfg:"[Ar] 3d⁸ 4s²"},
+  {z:29, s:"Cu", en:"Copper", hi:"तांबा (Copper)", m:"63.546", g:11, p:4, b:"d", c:"cat-transition", cfg:"[Ar] 3d¹⁰ 4s¹"},
+  {z:30, s:"Zn", en:"Zinc", hi:"जस्ता (Zinc)", m:"65.38", g:12, p:4, b:"d", c:"cat-transition", cfg:"[Ar] 3d¹⁰ 4s²"},
+  {z:31, s:"Ga", en:"Gallium", hi:"गैलियम", m:"69.723", g:13, p:4, b:"p", c:"cat-post-transition", cfg:"[Ar] 3d¹⁰ 4s² 4p¹"},
+  {z:32, s:"Ge", en:"Germanium", hi:"जर्मेनियम", m:"72.630", g:14, p:4, b:"p", c:"cat-metalloid", cfg:"[Ar] 3d¹⁰ 4s² 4p²"},
+  {z:33, s:"As", en:"Arsenic", hi:"आर्सेनिक", m:"74.922", g:15, p:4, b:"p", c:"cat-metalloid", cfg:"[Ar] 3d¹⁰ 4s² 4p³"},
+  {z:34, s:"Se", en:"Selenium", hi:"सेलेनियम", m:"78.971", g:16, p:4, b:"p", c:"cat-nonmetal", cfg:"[Ar] 3d¹⁰ 4s² 4p⁴"},
+  {z:35, s:"Br", en:"Bromine", hi:"ब्रोमीन", m:"79.904", g:17, p:4, b:"p", c:"cat-halogen", cfg:"[Ar] 3d¹⁰ 4s² 4p⁵"},
+  {z:36, s:"Kr", en:"Krypton", hi:"क्रिप्टन", m:"83.798", g:18, p:4, b:"p", c:"cat-noble", cfg:"[Ar] 3d¹⁰ 4s² 4p⁶"},
+  {z:37, s:"Rb", en:"Rubidium", hi:"रुबिडियम", m:"85.468", g:1, p:5, b:"s", c:"cat-alkali", cfg:"[Kr] 5s¹"},
+  {z:38, s:"Sr", en:"Strontium", hi:"स्ट्रोंशियम", m:"87.62", g:2, p:5, b:"s", c:"cat-alkaline", cfg:"[Kr] 5s²"},
+  {z:39, s:"Y", en:"Yttrium", hi:"इट्रियम", m:"88.906", g:3, p:5, b:"d", c:"cat-transition", cfg:"[Kr] 4d¹ 5s²"},
+  {z:40, s:"Zr", en:"Zirconium", hi:"ज़िरकोनियम", m:"91.224", g:4, p:5, b:"d", c:"cat-transition", cfg:"[Kr] 4d² 5s²"},
+  {z:41, s:"Nb", en:"Niobium", hi:"नायोबियम", m:"92.906", g:5, p:5, b:"d", c:"cat-transition", cfg:"[Kr] 4d⁴ 5s¹"},
+  {z:42, s:"Mo", en:"Molybdenum", hi:"मोलिब्डेनम", m:"95.95", g:6, p:5, b:"d", c:"cat-transition", cfg:"[Kr] 4d⁵ 5s¹"},
+  {z:43, s:"Tc", en:"Technetium", hi:"टेक्निशियम", m:"(97)", g:7, p:5, b:"d", c:"cat-transition", cfg:"[Kr] 4d⁵ 5s²"},
+  {z:44, s:"Ru", en:"Ruthenium", hi:"रुथेनियम", m:"101.07", g:8, p:5, b:"d", c:"cat-transition", cfg:"[Kr] 4d⁷ 5s¹"},
+  {z:45, s:"Rh", en:"Rhodium", hi:"रोडियम", m:"102.91", g:9, p:5, b:"d", c:"cat-transition", cfg:"[Kr] 4d⁸ 5s¹"},
+  {z:46, s:"Pd", en:"Palladium", hi:"पैलेडियम", m:"106.42", g:10, p:5, b:"d", c:"cat-transition", cfg:"[Kr] 4d¹⁰"},
+  {z:47, s:"Ag", en:"Silver", hi:"चाँदी (Silver)", m:"107.87", g:11, p:5, b:"d", c:"cat-transition", cfg:"[Kr] 4d¹⁰ 5s¹"},
+  {z:48, s:"Cd", en:"Cadmium", hi:"कैडमियम", m:"112.41", g:12, p:5, b:"d", c:"cat-transition", cfg:"[Kr] 4d¹⁰ 5s²"},
+  {z:49, s:"In", en:"Indium", hi:"इंडियम", m:"114.82", g:13, p:5, b:"p", c:"cat-post-transition", cfg:"[Kr] 4d¹⁰ 5s² 5p¹"},
+  {z:50, s:"Sn", en:"Tin", hi:"टिन (Tin)", m:"118.71", g:14, p:5, b:"p", c:"cat-post-transition", cfg:"[Kr] 4d¹⁰ 5s² 5p²"},
+  {z:51, s:"Sb", en:"Antimony", hi:"एंटीमनी", m:"121.76", g:15, p:5, b:"p", c:"cat-metalloid", cfg:"[Kr] 4d¹⁰ 5s² 5p³"},
+  {z:52, s:"Te", en:"Tellurium", hi:"टेल्यूरियम", m:"127.60", g:16, p:5, b:"p", c:"cat-metalloid", cfg:"[Kr] 4d¹⁰ 5s² 5p⁴"},
+  {z:53, s:"I", en:"Iodine", hi:"आयोडीन", m:"126.90", g:17, p:5, b:"p", c:"cat-halogen", cfg:"[Kr] 4d¹⁰ 5s² 5p⁵"},
+  {z:54, s:"Xe", en:"Xenon", hi:"जेनन", m:"131.29", g:18, p:5, b:"p", c:"cat-noble", cfg:"[Kr] 4d¹⁰ 5s² 5p⁶"},
+  {z:55, s:"Cs", en:"Caesium", hi:"सीज़ियम", m:"132.91", g:1, p:6, b:"s", c:"cat-alkali", cfg:"[Xe] 6s¹"},
+  {z:56, s:"Ba", en:"Barium", hi:"बेरियम", m:"137.33", g:2, p:6, b:"s", c:"cat-alkaline", cfg:"[Xe] 6s²"},
+  
+  // Lanthanoids (4f)
+  {z:57, s:"La", en:"Lanthanum", hi:"लैंथेनम", m:"138.91", g:3, p:9, b:"f", c:"cat-lanthanoid", cfg:"[Xe] 5d¹ 6s²"},
+  {z:58, s:"Ce", en:"Cerium", hi:"सीरियम", m:"140.12", g:4, p:9, b:"f", c:"cat-lanthanoid", cfg:"[Xe] 4f¹ 5d¹ 6s²"},
+  {z:59, s:"Pr", en:"Praseodymium", hi:"प्रेजोडायमियम", m:"140.91", g:5, p:9, b:"f", c:"cat-lanthanoid", cfg:"[Xe] 4f³ 6s²"},
+  {z:60, s:"Nd", en:"Neodymium", hi:"नियोडायमियम", m:"144.24", g:6, p:9, b:"f", c:"cat-lanthanoid", cfg:"[Xe] 4f⁴ 6s²"},
+  {z:61, s:"Pm", en:"Promethium", hi:"प्रोमेथियम", m:"(145)", g:7, p:9, b:"f", c:"cat-lanthanoid", cfg:"[Xe] 4f⁵ 6s²"},
+  {z:62, s:"Sm", en:"Samarium", hi:"समैरियम", m:"150.36", g:8, p:9, b:"f", c:"cat-lanthanoid", cfg:"[Xe] 4f⁶ 6s²"},
+  {z:63, s:"Eu", en:"Europium", hi:"यूरोपियम", m:"151.96", g:9, p:9, b:"f", c:"cat-lanthanoid", cfg:"[Xe] 4f⁷ 6s²"},
+  {z:64, s:"Gd", en:"Gadolinium", hi:"गैडोलीनियम", m:"157.25", g:10, p:9, b:"f", c:"cat-lanthanoid", cfg:"[Xe] 4f⁷ 5d¹ 6s²"},
+  {z:65, s:"Tb", en:"Terbium", hi:"टर्बियम", m:"158.93", g:11, p:9, b:"f", c:"cat-lanthanoid", cfg:"[Xe] 4f⁹ 6s²"},
+  {z:66, s:"Dy", en:"Dysprosium", hi:"डिस्प्रोसियम", m:"162.50", g:12, p:9, b:"f", c:"cat-lanthanoid", cfg:"[Xe] 4f¹⁰ 6s²"},
+  {z:67, s:"Ho", en:"Holmium", hi:"होल्मियम", m:"164.93", g:13, p:9, b:"f", c:"cat-lanthanoid", cfg:"[Xe] 4f¹¹ 6s²"},
+  {z:68, s:"Er", en:"Erbium", hi:"एर्बियम", m:"167.26", g:14, p:9, b:"f", c:"cat-lanthanoid", cfg:"[Xe] 4f¹² 6s²"},
+  {z:69, s:"Tm", en:"Thulium", hi:"थुलियम", m:"168.93", g:15, p:9, b:"f", c:"cat-lanthanoid", cfg:"[Xe] 4f¹³ 6s²"},
+  {z:70, s:"Yb", en:"Ytterbium", hi:"यटरबियम", m:"173.05", g:16, p:9, b:"f", c:"cat-lanthanoid", cfg:"[Xe] 4f¹⁴ 6s²"},
+  {z:71, s:"Lu", en:"Lutetium", hi:"ल्यूटेशियम", m:"174.97", g:17, p:9, b:"f", c:"cat-lanthanoid", cfg:"[Xe] 4f¹⁴ 5d¹ 6s²"},
+
+  // Period 6 (Post-Lanthanide)
+  {z:72, s:"Hf", en:"Hafnium", hi:"हाफ्नियम", m:"178.49", g:4, p:6, b:"d", c:"cat-transition", cfg:"[Xe] 4f¹⁴ 5d² 6s²"},
+  {z:73, s:"Ta", en:"Tantalum", hi:"टैंटेलम", m:"180.95", g:5, p:6, b:"d", c:"cat-transition", cfg:"[Xe] 4f¹⁴ 5d³ 6s²"},
+  {z:74, s:"W", en:"Tungsten", hi:"टंगस्टन", m:"183.84", g:6, p:6, b:"d", c:"cat-transition", cfg:"[Xe] 4f¹⁴ 5d⁴ 6s²"},
+  {z:75, s:"Re", en:"Rhenium", hi:"रीनियम", m:"186.21", g:7, p:6, b:"d", c:"cat-transition", cfg:"[Xe] 4f¹⁴ 5d⁵ 6s²"},
+  {z:76, s:"Os", en:"Osmium", hi:"ऑस्मियम", m:"190.23", g:8, p:6, b:"d", c:"cat-transition", cfg:"[Xe] 4f¹⁴ 5d⁶ 6s²"},
+  {z:77, s:"Ir", en:"Iridium", hi:"इरिडियम", m:"192.22", g:9, p:6, b:"d", c:"cat-transition", cfg:"[Xe] 4f¹⁴ 5d⁷ 6s²"},
+  {z:78, s:"Pt", en:"Platinum", hi:"प्लैटिनम", m:"195.08", g:10, p:6, b:"d", c:"cat-transition", cfg:"[Xe] 4f¹⁴ 5d⁹ 6s¹"},
+  {z:79, s:"Au", en:"Gold", hi:"सोना (Gold)", m:"196.97", g:11, p:6, b:"d", c:"cat-transition", cfg:"[Xe] 4f¹⁴ 5d¹⁰ 6s¹"},
+  {z:80, s:"Hg", en:"Mercury", hi:"पारा (Mercury)", m:"200.59", g:12, p:6, b:"d", c:"cat-transition", cfg:"[Xe] 4f¹⁴ 5d¹⁰ 6s²"},
+  {z:81, s:"Tl", en:"Thallium", hi:"थैलियम", m:"204.38", g:13, p:6, b:"p", c:"cat-post-transition", cfg:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹"},
+  {z:82, s:"Pb", en:"Lead", hi:"सीसा (Lead)", m:"207.2", g:14, p:6, b:"p", c:"cat-post-transition", cfg:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²"},
+  {z:83, s:"Bi", en:"Bismuth", hi:"बिस्मथ", m:"208.98", g:15, p:6, b:"p", c:"cat-post-transition", cfg:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³"},
+  {z:84, s:"Po", en:"Polonium", hi:"पोलोनियम", m:"(209)", g:16, p:6, b:"p", c:"cat-post-transition", cfg:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴"},
+  {z:85, s:"At", en:"Astatine", hi:"एस्टैटिन", m:"(210)", g:17, p:6, b:"p", c:"cat-metalloid", cfg:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵"},
+  {z:86, s:"Rn", en:"Radon", hi:"रेडॉन", m:"(222)", g:18, p:6, b:"p", c:"cat-noble", cfg:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶"},
+
+  // Period 7
+  {z:87, s:"Fr", en:"Francium", hi:"फ्रैंसियम", m:"(223)", g:1, p:7, b:"s", c:"cat-alkali", cfg:"[Rn] 7s¹"},
+  {z:88, s:"Ra", en:"Radium", hi:"रेडियम", m:"(226)", g:2, p:7, b:"s", c:"cat-alkaline", cfg:"[Rn] 7s²"},
+
+  // Actinoids (5f)
+  {z:89, s:"Ac", en:"Actinium", hi:"एक्टिनियम", m:"(227)", g:3, p:10, b:"f", c:"cat-actinoid", cfg:"[Rn] 6d¹ 7s²"},
+  {z:90, s:"Th", en:"Thorium", hi:"थोरियम", m:"232.04", g:4, p:10, b:"f", c:"cat-actinoid", cfg:"[Rn] 6d² 7s²"},
+  {z:91, s:"Pa", en:"Protactinium", hi:"प्रोटैक्टिनियम", m:"231.04", g:5, p:10, b:"f", c:"cat-actinoid", cfg:"[Rn] 5f² 6d¹ 7s²"},
+  {z:92, s:"U", en:"Uranium", hi:"यूरेनियम", m:"238.03", g:6, p:10, b:"f", c:"cat-actinoid", cfg:"[Rn] 5f³ 6d¹ 7s²"},
+  {z:93, s:"Np", en:"Neptunium", hi:"नेप्च्यूनियम", m:"(237)", g:7, p:10, b:"f", c:"cat-actinoid", cfg:"[Rn] 5f⁴ 6d¹ 7s²"},
+  {z:94, s:"Pu", en:"Plutonium", hi:"प्लूटोनियम", m:"(244)", g:8, p:10, b:"f", c:"cat-actinoid", cfg:"[Rn] 5f⁶ 7s²"},
+  {z:95, s:"Am", en:"Americium", hi:"अमेरिकियम", m:"(243)", g:9, p:10, b:"f", c:"cat-actinoid", cfg:"[Rn] 5f⁷ 7s²"},
+  {z:96, s:"Cm", en:"Curium", hi:"क्यूरियम", m:"(247)", g:10, p:10, b:"f", c:"cat-actinoid", cfg:"[Rn] 5f⁷ 6d¹ 7s²"},
+  {z:97, s:"Bk", en:"Berkelium", hi:"बर्केलियम", m:"(247)", g:11, p:10, b:"f", c:"cat-actinoid", cfg:"[Rn] 5f⁹ 7s²"},
+  {z:98, s:"Cf", en:"Californium", hi:"कैलिफ़ोर्नियम", m:"(251)", g:12, p:10, b:"f", c:"cat-actinoid", cfg:"[Rn] 5f¹⁰ 7s²"},
+  {z:99, s:"Es", en:"Einsteinium", hi:"आइंस्टीनियम", m:"(252)", g:13, p:10, b:"f", c:"cat-actinoid", cfg:"[Rn] 5f¹¹ 7s²"},
+  {z:100, s:"Fm", en:"Fermium", hi:"फर्मियम", m:"(257)", g:14, p:10, b:"f", c:"cat-actinoid", cfg:"[Rn] 5f¹² 7s²"},
+  {z:101, s:"Md", en:"Mendelevium", hi:"मेंडेलीवियम", m:"(258)", g:15, p:10, b:"f", c:"cat-actinoid", cfg:"[Rn] 5f¹³ 7s²"},
+  {z:102, s:"No", en:"Nobelium", hi:"नोबेलियम", m:"(259)", g:16, p:10, b:"f", c:"cat-actinoid", cfg:"[Rn] 5f¹⁴ 7s²"},
+  {z:103, s:"Lr", en:"Lawrencium", hi:"लॉरेंशियम", m:"(266)", g:17, p:10, b:"f", c:"cat-actinoid", cfg:"[Rn] 5f¹⁴ 7s² 7p¹"},
+
+  // Period 7 (Post-Actinide)
+  {z:104, s:"Rf", en:"Rutherfordium", hi:"रदरफोर्डियम", m:"(267)", g:4, p:7, b:"d", c:"cat-transition", cfg:"[Rn] 5f¹⁴ 6d² 7s²"},
+  {z:105, s:"Db", en:"Dubnium", hi:"डब्नियम", m:"(268)", g:5, p:7, b:"d", c:"cat-transition", cfg:"[Rn] 5f¹⁴ 6d³ 7s²"},
+  {z:106, s:"Sg", en:"Seaborgium", hi:"सीबोर्गियम", m:"(269)", g:6, p:7, b:"d", c:"cat-transition", cfg:"[Rn] 5f¹⁴ 6d⁴ 7s²"},
+  {z:107, s:"Bh", en:"Bohrium", hi:"बोहरियम", m:"(270)", g:7, p:7, b:"d", c:"cat-transition", cfg:"[Rn] 5f¹⁴ 6d⁵ 7s²"},
+  {z:108, s:"Hs", en:"Hassium", hi:"हैसियम", m:"(277)", g:8, p:7, b:"d", c:"cat-transition", cfg:"[Rn] 5f¹⁴ 6d⁶ 7s²"},
+  {z:109, s:"Mt", en:"Meitnerium", hi:"माइटनेरियम", m:"(278)", g:9, p:7, b:"d", c:"cat-transition", cfg:"[Rn] 5f¹⁴ 6d⁷ 7s²"},
+  {z:110, s:"Ds", en:"Darmstadtium", hi:"डार्मस्टैडियम", m:"(281)", g:10, p:7, b:"d", c:"cat-transition", cfg:"[Rn] 5f¹⁴ 6d⁸ 7s²"},
+  {z:111, s:"Rg", en:"Roentgenium", hi:"रॉन्टगेनियम", m:"(282)", g:11, p:7, b:"d", c:"cat-transition", cfg:"[Rn] 5f¹⁴ 6d⁹ 7s²"},
+  {z:112, s:"Cn", en:"Copernicium", hi:"कॉपरनिकियम", m:"(285)", g:12, p:7, b:"d", c:"cat-transition", cfg:"[Rn] 5f¹⁴ 6d¹⁰ 7s²"},
+  {z:113, s:"Nh", en:"Nihonium", hi:"निहोनियम", m:"(286)", g:13, p:7, b:"p", c:"cat-post-transition", cfg:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p¹"},
+  {z:114, s:"Fl", en:"Flerovium", hi:"फ्लेरोवियम", m:"(289)", g:14, p:7, b:"p", c:"cat-post-transition", cfg:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p²"},
+  {z:115, s:"Mc", en:"Moscovium", hi:"मॉस्कोवियम", m:"(290)", g:15, p:7, b:"p", c:"cat-post-transition", cfg:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³"},
+  {z:116, s:"Lv", en:"Livermorium", hi:"लिवरमोरियम", m:"(293)", g:16, p:7, b:"p", c:"cat-post-transition", cfg:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁴"},
+  {z:117, s:"Ts", en:"Tennessine", hi:"टेनेसिन", m:"(294)", g:17, p:7, b:"p", c:"cat-halogen", cfg:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁵"},
+  {z:118, s:"Og", en:"Oganesson", hi:"ओगनेसन", m:"(294)", g:18, p:7, b:"p", c:"cat-noble", cfg:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶"}
+];
+
+// S-BLOCK & P-BLOCK VERTICAL GROUP MNEMONICS (pro+1.html wale exact)
+const GROUP_INFO = {
+  1: {
+    hiGroup: "समूह 1: क्षार धातुएँ (Alkali Metals)",
+    mnemonic: "हेलीना की रब से फरियाद (H, Li, Na, K, Rb, Cs, Fr) — Ha-Li-Na ke rubi subi friend"
+  },
+  2: {
+    hiGroup: "समूह 2: क्षारीय मृदा धातुएँ (Alkaline Earth)",
+    mnemonic: "बेटा मांगे कार स्कूटर बाप राजी (Be, Mg, Ca, Sr, Ba, Ra) "
+  },
+  13: {
+    hiGroup: "समूह 13: बोरॉन परिवार (Boron Family)",
+    mnemonic: "बैंगन आलू गाजर इन थैला नहीं (B, Al, Ga, In, Tl, Nh)"
+  },
+  14: {
+    hiGroup: "समूह 14: कार्बन परिवार (Carbon Family)",
+    mnemonic: "कहे सीता जी सुनो प्रभु फल (C, Si, Ge, Sn, Pb, Fl)"
+  },
+  15: {
+    hiGroup: "समूह 15: निक्टोजन / नाइट्रोजन परिवार (Nitrogen Group)",
+    mnemonic: "नाना पाटेकर असरानी सब भिखारी (N, P, As, Sb, Bi, Mc) — Nana Patekar Ashwarya sab bindas  "
+  },
+  16: {
+    hiGroup: "समूह 16: चाल्कोजन / ऑक्सीजन परिवार (Chalcogens)",
+    mnemonic: "ओ स्टाइल से टीपो लाइव (O, S, Se, Te, Po, Lv) – O style se tel polish "
+  },
+  17: {
+    hiGroup: "समूह 17: हैलोजन (Halogens)",
+    mnemonic: "फिर कल बाहर आई आंटी ताशी (F, Cl, Br, I, At, Ts) — Fir kal bahar aayegi aunty "
+  },
+  18: {
+    hiGroup: "समूह 18: उत्कृष्ट गैसें / अक्रिय गैसें (Noble Gases)",
+    mnemonic: "हीना नीना और करीना का एक्स-रे रंगीन ओगी (He, Ne, Ar, Kr, Xe, Rn, Og) Heena Nina aur karina ka xerox rangeen"
+  }
+};
+
+// D-BLOCK HORIZONTAL (ROW-WISE) SERIES MNEMONICS (pro+1.html wale exact)
+const D_BLOCK_ROWS = {
+  4: {
+    title: "3d श्रेणी (Period 4: Sc से Zn)",
+    mnemonic: "साइंस टीचर विनीता कृपलानी, मन फेको नहीं क्यों जाने?(Sc Ti V Cr Mn Fe Co Ni Cu Zn)"
+  },
+  5: {
+    title: "4d श्रेणी (Period 5: Y से Cd)",
+    mnemonic: "यारी ज़रा निभाना मौत तक, रुकावट राह में पड़े तो आग में कूद (Y Zr Nb Mo Tc Ru Rh Pd Ag Cd)"
+  },
+  6: {
+    title: "5d श्रेणी (Period 6: La, Hf से Hg)",
+    mnemonic: "ला हफ़्ता वरना रे, ओसामा से इरफ़ान पिटेगा और हॉस्पिटल जाएगा (La Hf Ta W Re Os Ir Pt Au Hg)"
+  },
+  7: {
+    title: "6d श्रेणी (Period 7: Ac, Rf से Cn)",
+    mnemonic: "एसी में RD शर्मा की Book में होते हैं Maths के Difficult Rangeen Questions (Ac Rf Db Sg Bh Hs Mt Ds Rg Cn)"
+  }
+};
+
+// F-BLOCK HORIZONTAL (ROW-WISE) SERIES MNEMONICS (pro+1.html wale exact)
+const F_BLOCK_ROWS = {
+  9: {
+    title: "4f लैन्थेनाइड श्रेणी (Lanthanoids: Ce से Lu)",
+    mnemonic: "सिने पर नदिया प्रेम की समाई यू गदगद तब दिल हुआ अरे तुम यूभी लाजवाब (Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu) — लड़के से परेशान नंद पंडित ने शाम को एक की गर्दन तोड़ दी, होगी तमन्ना अब तुम्हारी पूरी लूटो!"
+  },
+  10: {
+    title: "5f ऐक्टिनाइड श्रेणी (Actinoids: Th से Lr)",
+    mnemonic: "थोडे पहलवान उधर निपटेगे पूरे अमेरिकन cm के बेकों को चोरो से आइन्स्टीन फर्मी मेण्डल नोबल लोरेशिया (Th Pa U Np Pu Am Cm Bk Cf Es Fm Md No Lr) — थोड़े पापड़ उनके नापेंगे, पुराने आम कम बिकेंगे, कैफे में ऐसे फरमाओ, मैडम नाश्ता लाओ!"
+  }
+};
+
+let currentLang = "both";
+const grid = document.getElementById("tableGrid");
+
+// Grid column calculation: D-block aur P-block ke beech ka 14px divider gap (Col 14) skip hota hai
+function getGridColumn(group) {
+  if (group <= 2) return group;        // s-block: Col 1, 2
+  if (group <= 12) return group + 1;   // d-block & f-block start: Col 4 to 13
+  return group + 2;                    // p-block & f-block end: Col 15 to 20
+}
+
+const laAnchor = document.createElement("div");
+laAnchor.className = "series-anchor";
+laAnchor.style.gridColumn = "4";
+laAnchor.style.gridRow = "6";
+laAnchor.innerHTML = "57–71<br>La–Lu<br><span style='font-family:var(--font-hi); font-size:0.55rem;'>लैन्थेनाइड</span>";
+laAnchor.onclick = () => filterBlock("f");
+laAnchor.onmouseenter = () => showTicker({b:'f', p:9});
+grid.appendChild(laAnchor);
+
+const acAnchor = document.createElement("div");
+acAnchor.className = "series-anchor";
+acAnchor.style.gridColumn = "4";
+acAnchor.style.gridRow = "7";
+acAnchor.innerHTML = "89–103<br>Ac–Lr<br><span style='font-family:var(--font-hi); font-size:0.55rem;'>ऐक्टिनाइड</span>";
+acAnchor.onclick = () => filterBlock("f");
+acAnchor.onmouseenter = () => showTicker({b:'f', p:10});
+grid.appendChild(acAnchor);
+
+function renderGrid() {
+  document.querySelectorAll(".element-card").forEach(c => c.remove());
+
+  ELEMENTS.forEach(el => {
+    // F-block ke liye bhi getGridColumn(el.g) lagaya jisse Ho aur Es 14px gap me fasne ke bajay seedhe Col 15 par aate hain
+    const col = getGridColumn(el.g);
+    const row = el.p;
+
+    const card = document.createElement("div");
+    card.className = `element-card ${el.c}`;
+    card.dataset.z = el.z;
+    card.dataset.symbol = el.s.toLowerCase();
+    card.dataset.en = el.en.toLowerCase();
+    card.dataset.hi = el.hi;
+    card.dataset.block = el.b;
+    card.dataset.cat = el.c;
+    card.dataset.group = el.g;
+
+    card.style.gridColumn = col;
+    card.style.gridRow = row;
+
+    let nameDisplay = "";
+    if (currentLang === "hi") {
+      nameDisplay = `<div class="card-name hi">${el.hi}</div>`;
+    } else if (currentLang === "en") {
+      nameDisplay = `<div class="card-name">${el.en}</div>`;
+    } else {
+      nameDisplay = `<div class="card-name hi">${el.hi}</div>`;
+    }
+
+    card.innerHTML = `
+      <div class="card-meta">
+        <span>${el.z}</span>
+        <span>${el.m}</span>
+      </div>
+      <div class="card-symbol">${el.s}</div>
+      ${nameDisplay}
+    `;
+
+    card.addEventListener("mouseenter", () => showTicker(el));
+    card.addEventListener("click", () => openModal(el));
+    grid.appendChild(card);
+  });
+}
+
+// TICKER HANDLER
+const tickerText = document.getElementById("tickerText");
+function showTicker(el) {
+  if (el.b === 'd' && D_BLOCK_ROWS[el.p]) {
+    tickerText.innerHTML = `<strong>💡 ${D_BLOCK_ROWS[el.p].title}:</strong> ${D_BLOCK_ROWS[el.p].mnemonic}`;
+  } else if (el.b === 'f' && F_BLOCK_ROWS[el.p]) {
+    tickerText.innerHTML = `<strong>💡 ${F_BLOCK_ROWS[el.p].title}:</strong> ${F_BLOCK_ROWS[el.p].mnemonic}`;
+  } else if (GROUP_INFO[el.g]) {
+    tickerText.innerHTML = `<strong>💡 ${GROUP_INFO[el.g].hiGroup}:</strong> ${GROUP_INFO[el.g].mnemonic}`;
+  } else {
+    tickerText.innerHTML = `<strong>💡 आंतरिक संक्रमण तत्व (f-block):</strong> 4f लैन्थेनाइड्स एवं 5f ऐक्टिनाइड्स रेडियोधर्मी एवं दुर्लभ मृदा तत्व!`;
+  }
+}
+
+// MODAL HANDLER
+const modal = document.getElementById("detailModal");
+function openModal(el) {
+  const symBox = document.getElementById("mSym");
+  const cardColor = getComputedStyle(document.querySelector(`.${el.c} .card-symbol`)).color;
+
+  symBox.innerText = el.s;
+  symBox.style.color = cardColor;
+  symBox.style.borderColor = cardColor;
+
+  document.getElementById("mEnName").innerText = el.en;
+  document.getElementById("mHiName").innerText = el.hi;
+  document.getElementById("mCategory").innerText = `${el.c.replace('cat-', '').toUpperCase()} • ${el.b}-ब्लॉक`;
+  document.getElementById("mZ").innerText = el.z;
+  document.getElementById("mMass").innerText = `${el.m} u`;
+  document.getElementById("mCoords").innerText = `समूह (Group) ${el.g}, आवर्त (Period) ${el.p <= 7 ? el.p : (el.p === 9 ? '6 (लैन्थेनाइड)' : '7 (ऐक्टिनाइड)')}`;
+  document.getElementById("mConfig").innerText = el.cfg;
+
+  if (el.b === 'd' && D_BLOCK_ROWS[el.p]) {
+    document.getElementById("mMnemonic").innerText = `${D_BLOCK_ROWS[el.p].title}: ${D_BLOCK_ROWS[el.p].mnemonic}`;
+  } else if (el.b === 'f' && F_BLOCK_ROWS[el.p]) {
+    document.getElementById("mMnemonic").innerText = `${F_BLOCK_ROWS[el.p].title}: ${F_BLOCK_ROWS[el.p].mnemonic}`;
+  } else {
+    document.getElementById("mMnemonic").innerText = GROUP_INFO[el.g] ? GROUP_INFO[el.g].mnemonic : "संक्रमण श्रेणी तत्व";
+  }
+
+  modal.classList.add("open");
+}
+
+document.getElementById("btnCloseModal").onclick = () => modal.classList.remove("open");
+modal.onclick = (e) => { if (e.target === modal) modal.classList.remove("open"); };
+
+// SEARCH FILTER
+const searchInput = document.getElementById("searchInput");
+searchInput.addEventListener("input", (e) => {
+  const q = e.target.value.toLowerCase().trim();
+  document.querySelectorAll(".element-card").forEach(card => {
+    const match = !q || 
+      card.dataset.en.includes(q) || 
+      card.dataset.hi.includes(q) || 
+      card.dataset.symbol.includes(q) || 
+      card.dataset.z === q;
+    card.classList.toggle("dimmed", !match);
+  });
+});
+
+// LANGUAGE SWITCHER
+document.querySelectorAll("#langGroup .btn-toggle").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("#langGroup .btn-toggle").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentLang = btn.dataset.lang;
+    renderGrid();
+  });
+});
+
+// BLOCK FILTERING
+document.querySelectorAll(".controls-wrapper .btn-group:not(#langGroup) .btn-toggle").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".controls-wrapper .btn-group:not(#langGroup) .btn-toggle").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    filterBlock(btn.dataset.filter);
+  });
+});
+
+function filterBlock(block) {
+  document.querySelectorAll(".element-card").forEach(card => {
+    const match = (block === "all" || card.dataset.block === block);
+    card.classList.toggle("dimmed", !match);
+  });
+}
+
+// LEGEND HOVER HIGHLIGHT
+document.querySelectorAll(".legend-chip").forEach(chip => {
+  const cat = chip.dataset.cat;
+  chip.addEventListener("mouseenter", () => {
+    document.querySelectorAll(".element-card").forEach(c => c.classList.toggle("dimmed", c.dataset.cat !== cat));
+  });
+  chip.addEventListener("mouseleave", () => {
+    const activeBlock = document.querySelector(".controls-wrapper .btn-group:not(#langGroup) .btn-toggle.active").dataset.filter;
+    filterBlock(activeBlock);
+  });
+});
+
+// HINDI QUIZ ENGINE
+const quizModal = document.getElementById("quizModal");
+let quizScore = 0, quizTotal = 0, currentQuizElem = null;
+
+document.getElementById("btnStartQuiz").onclick = () => {
+  quizScore = 0; quizTotal = 0;
+  quizModal.classList.add("open");
+  nextQuiz();
+};
+document.getElementById("btnCloseQuiz").onclick = () => quizModal.classList.remove("open");
+
+function nextQuiz() {
+  currentQuizElem = ELEMENTS[Math.floor(Math.random() * ELEMENTS.length)];
+  const mode = Math.random() > 0.5 ? "symbol_to_hi" : "z_to_symbol";
+
+  document.getElementById("quizScore").innerText = quizScore;
+  document.getElementById("quizTotal").innerText = quizTotal;
+
+  const qBox = document.getElementById("quizQuestion");
+  const optBox = document.getElementById("quizOptions");
+  optBox.innerHTML = "";
+
+  let correctAns = "";
+  if (mode === "symbol_to_hi") {
+    qBox.innerText = `प्रतीक "${currentQuizElem.s}" किस तत्व का हिंदी नाम है?`;
+    correctAns = currentQuizElem.hi;
+  } else {
+    qBox.innerText = `परमाणु संख्या ${currentQuizElem.z} (${currentQuizElem.hi}) का रासायनिक प्रतीक क्या है?`;
+    correctAns = currentQuizElem.s;
+  }
+
+  let options = [correctAns];
+  while (options.length < 4) {
+    const rand = ELEMENTS[Math.floor(Math.random() * ELEMENTS.length)];
+    const val = mode === "symbol_to_hi" ? rand.hi : rand.s;
+    if (!options.includes(val)) options.push(val);
+  }
+  options.sort(() => Math.random() - 0.5);
+
+  options.forEach(opt => {
+    const b = document.createElement("button");
+    b.className = "quiz-opt";
+    b.innerText = opt;
+    b.onclick = () => {
+      quizTotal++;
+      if (opt === correctAns) {
+        quizScore++;
+        b.style.background = "#10b981";
+        b.style.borderColor = "#10b981";
+      } else {
+        b.style.background = "#ef4444";
+        b.style.borderColor = "#ef4444";
+      }
+      setTimeout(nextQuiz, 650);
+    };
+    optBox.appendChild(b);
+  });
+}
+
+renderGrid();
