@@ -564,12 +564,12 @@ header {
 /* Portrait Mode (Vertical) ke liye */
 @media (max-width: 1000px) and (orientation: portrait) {
   .alya-char {
-    width: 25vh; /* Width kam kar di taaki text par overlap na ho */
+    width: 25vw; /* Width kam kar di taaki text par overlap na ho */
     min-width: 110px; /* Character isse zyada chota nahi hoga */
     top: 2%;
   }
   .luffy-char {
-    width: 35vh; /* Width 60vw se ghatakar 32vw kar di */
+    width: 35vw; /* Width 60vw se ghatakar 32vw kar di */
     min-width: 120px;
   }
 }
