@@ -564,11 +564,11 @@ header {
 /* Portrait Mode (Vertical) ke liye */
 @media (max-width: 1000px) and (orientation: portrait) {
   .alya-char {
-    width: 40vh;
+    width: 40vw;
     top: 2%;
   }
   .luffy-char {
-    width: 60vh;
+    width: 60vw;
   }
 }
 
