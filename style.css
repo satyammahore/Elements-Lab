@@ -561,12 +561,24 @@ header {
 }
 
 
-@media (max-width: 500px) {
+/* Portrait Mode (Vertical) ke liye */
+@media (max-width: 1000px) and (orientation: portrait) {
   .alya-char {
-    width: 40vh ;
+    width: 40vh;
     top: 2%;
   }
   .luffy-char {
-    width: 60vh ;
+    width: 60vh;
+  }
+}
+
+/* Landscape Mode (Horizontal) ke liye */
+@media (max-width: 1000px) and (orientation: landscape) {
+  .alya-char {
+    width: 15vw; /* Width kam kar di taaki overlap na ho */
+    top: 2%;
+  }
+  .luffy-char {
+    width: 20vw; /* Ise bhi vertical mode ke mukable chota kar diya */
   }
 }
